@@ -1,0 +1,43 @@
+<div class="imgbgl ">
+  <div class="row fh mb">
+    <div class="col s8">
+      <img src="./assets/images/unefaLogo.png" width="120px" height="120px">
+    </div>
+
+   
+
+  <div class="container valign-wrapper col s4 fh  white" >
+      <mat-card class="login-card">
+          <mat-card-header >
+            
+            <mat-card-title ><h4 >INICIAR SESIÓN</h4></mat-card-title>
+            
+          </mat-card-header>
+          <mat-card-content>
+            <div class="row">
+            <form class="col s12" [formGroup]="loginForm">
+                
+                    <mat-form-field class="col s12">
+                      <input matInput type="text"  class="browser-default" formControlName="usuario">
+                      <mat-placeholder class="placeholder">Usuario</mat-placeholder >
+                    </mat-form-field>
+                  
+                    <mat-form-field class="col s12">
+                      <input type="password" matInput  class="browser-default" formControlName="contra" (keyup.enter)="iniciarSesion()">
+                      <mat-placeholder class="placeholder">Contraseña</mat-placeholder>
+                    </mat-form-field>
+                    <a routerLink="/forgotpassword">Olvido la contraseña?</a>
+                    
+            </form>
+          </div>
+          </mat-card-content>
+          <mat-card-actions class="row">
+            <button mat-button class="col s6  btn-is " [disabled]="!loginForm.valid" (click)="iniciarSesion()">Iniciar sesión</button>
+           
+          </mat-card-actions>
+          
+        </mat-card>
+  </div>
+
+</div>
+</div>

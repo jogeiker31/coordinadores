@@ -1,0 +1,55 @@
+<h1 mat-dialog-title >
+  Materias de la seccion {{seccion}} 
+  
+ </h1>
+
+ <div mat-dialog-content>
+
+
+     
+
+     <div class="row">
+         <form [formGroup]="materiasPorSeccionForm">
+          
+          <div class="col s12">
+              <label> Selecciona una materia</label>
+            <mat-form-field class="col s12">
+            
+            <mat-label>Materias</mat-label>
+            <mat-select formControlName="codigo_materia">
+              <mat-option *ngFor="let materia of materiasPorSemestre" [value]="materia.codigo_materia">
+                {{getNameOfMateria(materia.codigo_materia)}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          </div>
+        
+          <div class="col s12">
+          <label> Asginar profesor</label>
+            <mat-form-field class="col s12">
+                
+                <mat-label>Profesores</mat-label>
+                <mat-select formControlName="ci_profesor">
+                  <mat-option *ngFor="let profesor of profesoresDisponibles" [value]="profesor.ci_profesor">
+                    CI: {{ profesor.ci_profesor }} - {{ profesor.nom_prof }} {{ profesor.ape_prof}} 
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+          </div>
+         
+
+
+        
+      </form>
+      
+     </div>
+
+     
+   
+ </div>
+ 
+ <div mat-dialog-actions>
+   <button mat-button (click)="onNoClick()">Cancelar</button>
+   <button mat-button  cdkFocusInitial [disabled]="!materiasPorSeccionForm.valid" (click)="guardarMateriaSeccion(materiasPorSeccionForm.value)">Aceptar</button>
+ </div>
+ 

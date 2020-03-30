@@ -1,0 +1,33 @@
+.input-field input[type=text]:focus + label {
+    color:rgb(15, 90, 160);
+  }
+
+  .input-field input[type=email]:focus + label {
+    color:rgb(15, 90, 160);
+  }
+
+
+  .input-field input[type=text]:focus {
+    border-bottom: 1px solid rgb(15, 90, 160) ;
+    box-shadow: 0 1px 0 0 rgb(15, 90, 160) ;
+  }
+
+  .input-field input[type=email]:focus{
+    border-bottom: 1px solid rgb(15, 90, 160) ;
+    box-shadow: 0 1px 0 0 rgb(15, 90, 160) ;
+  
+    
+  }
+  button:focus {
+    background-color: transparent !important;
+  }
+ 
+ #editado {
+   background-color: #98b9df !important;
+ }
+ .seleccionado{
+   background-color:#d2e1ee !important;
+ }
+ .noseleccionado{
+   background-color: white !important;;
+ }

@@ -1,0 +1,101 @@
+.sidenav-container-main {
+    position: absolute;
+    top: 64px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #eee;
+}
+
+.sidenav-container-main-login {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #eee;
+}
+
+.sidenav-main {
+    width: 260px;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    
+}
+
+.btn-menu-sidenav:focus {
+    background: none !important; 
+}
+.btn-menu-sidenav {
+    -webkit-app-region: no-drag;
+}
+
+.mat-toolbar-single-row {
+  
+    background-color: #085fa7 !important;
+}
+
+.mat-drawer {
+    background-color: #085fa7 !important;
+    color: rgba(0,0,0,.87);
+}
+
+.eventos-ventana{
+    /* no-drag es para que los botones encima del div draggable funcionen */
+    -webkit-app-region: no-drag; 
+    z-index: 999999;
+    background-color: #ffffff26;
+    padding: 0;
+    width: 90px;
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 25px;
+}
+
+.eventos-ventana button{
+    width: 30px;
+    color: black;
+    height: 25px;
+}:focus{
+    background-color: initial;
+}
+
+
+.eventos-ventana button mat-icon{
+    vertical-align: super !important;
+}
+
+
+.drag {
+    /* lo que dice webkit region drag, es de la api de electron, para permitir arrastar la ventana */
+    -webkit-app-region: drag;
+    position: fixed;
+    height: 20px;
+    width: 100%;
+    z-index: 1;
+    background-color: transparent;
+    top: 0;
+
+}
+.nombre-coor{
+    font-size: 15px;
+    margin-left: 2%;
+}
+
+.coordinador {
+    right: 0;
+    bottom: 1px;
+    color: white;
+    font-size: 13px;
+}
+
+.example-spacer {
+    flex: 1 1 auto;
+  }
+
+.hora{
+    font-size: 16px;
+    margin-top: 3%;
+}

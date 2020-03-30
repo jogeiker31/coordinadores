@@ -1,0 +1,23 @@
+<h1 mat-dialog-title>
+ {{getNameOfMateriaById(data.materia) }} <br>
+ <h6> {{data.dia}} - {{data.hora.hora}}</h6> 
+</h1>
+<div mat-dialog-content>
+    <label >Seleccionar materia</label>
+  
+    <mat-radio-group
+    aria-labelledby="Materias"
+    class="materias-radio"
+    [(ngModel)]="materiaSelected">
+    <mat-radio-button class="example-radio-button" *ngFor="let materia of materiasPS" [value]="materia.id_mat_sec">
+        {{getNameOfMateria(materia.codigo_materia)}}
+    </mat-radio-button>
+  </mat-radio-group>
+</div>
+
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">No Thanks</button>
+  <button mat-button  cdkFocusInitial [disabled]="!materiaSelected" (click)="SaveMateria(data)">Ok</button>
+</div>
+
+<!-- Modificado por DIOS -->

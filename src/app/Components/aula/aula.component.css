@@ -1,0 +1,13 @@
+button:focus {
+    background-color: transparent !important;
+  }
+ 
+ #editado {
+   background-color: #98b9df !important;
+ }
+ .seleccionado{
+   background-color:#d2e1ee !important;
+ }
+ .noseleccionado{
+   background-color: white !important;;
+ }

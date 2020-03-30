@@ -1,0 +1,142 @@
+<mat-expansion-panel [expanded]="true">
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      Informacion
+    </mat-panel-title>
+    <mat-panel-description>
+      Informacion a detalle de la seccion
+    </mat-panel-description>
+  </mat-expansion-panel-header>
+ 
+<div *ngIf="info">
+  <span>Carrera: {{info.carrera}}</span><button class="right light-blue darken-4" mat-mini-fab (click)="back()"><mat-icon>arrow_back</mat-icon></button><br>
+  <span>Turno: {{info.turno}}</span> <br>
+  <span>Seccion Siceu: {{info.codigo_siceu}}</span> <br>
+  <span>Semestre: {{info.semestre}} </span> <br>
+  <span>Aula: {{info.aula}} <button *ngIf="info && info.aula == null" mat-mini-fab class="light-blue darken-4" type="submit" (click)="openDialogAulasSec(info)">
+    <mat-icon>edit</mat-icon>
+  </button>  </span> <br>
+</div>
+
+
+</mat-expansion-panel>
+
+
+<table mat-table [dataSource]="HorarioData" class="mat-elevation-z8">
+
+  <!--- Note that these columns can be defined in any order.
+        The actual rendered columns are set as a property on the row definition" -->
+
+  <!-- Position Column -->
+  <ng-container matColumnDef="Hora">
+    <th mat-header-cell *matHeaderCellDef> Hora </th>
+    <td mat-cell *matCellDef="let hora"> {{hora.hora}} </td>
+  </ng-container>
+
+  <!-- Name Column -->
+  <ng-container matColumnDef="Lunes">
+    <th mat-header-cell *matHeaderCellDef> Lunes </th>
+    <td mat-cell *matCellDef="let hora" (click)="asignarMateria(hora,'L',hora.lunes)"> {{getNameOfMateriaById(hora.lunes)}}</td>
+  </ng-container>
+
+  <!-- Weight Column -->
+  <ng-container matColumnDef="Martes">
+    <th mat-header-cell *matHeaderCellDef> Martes </th>
+    <td mat-cell *matCellDef="let hora" (click)="asignarMateria(hora,'M',hora.martes)" > {{getNameOfMateriaById(hora.martes)}} </td>
+  </ng-container>
+
+  <!-- Symbol Column -->
+  <ng-container matColumnDef="Miercoles">
+    <th mat-header-cell *matHeaderCellDef> Miercoles </th>
+    <td mat-cell *matCellDef="let hora" (click)="asignarMateria(hora,'X',hora.miercoles)"> {{getNameOfMateriaById(hora.miercoles)}} </td>
+  </ng-container>
+
+   <!-- Symbol Column -->
+   <ng-container matColumnDef="Jueves">
+    <th mat-header-cell *matHeaderCellDef> Jueves </th>
+    <td mat-cell *matCellDef="let hora" (click)="asignarMateria(hora,'J',hora.jueves)"> {{getNameOfMateriaById(hora.jueves)}} </td>
+  </ng-container>
+
+   <!-- Symbol Column -->
+   <ng-container matColumnDef="Viernes">
+    <th mat-header-cell *matHeaderCellDef> Viernes </th>
+    <td mat-cell *matCellDef="let hora" (click)="asignarMateria(hora,'V',hora.viernes)"> {{getNameOfMateriaById(hora.viernes)}} </td>
+  </ng-container>
+
+   <!-- Symbol Column -->
+   <ng-container matColumnDef="Sabado">
+    <th mat-header-cell *matHeaderCellDef> Sabado </th>
+    <td mat-cell *matCellDef="let hora" (click)="asignarMateria(hora,'S',hora.sabado)"> {{getNameOfMateriaById(hora.sabado)}} </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="columnasHorario"></tr>
+  <tr mat-row *matRowDef="let row; columns: columnasHorario;"></tr>
+</table>
+
+<mat-expansion-panel [expanded]="true">
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      Materias
+    </mat-panel-title>
+    <mat-panel-description>
+      Materias disponibles
+    </mat-panel-description>
+  </mat-expansion-panel-header>
+ 
+  <button class="btn waves-effect waves-light  light-blue darken-4" type="submit" (click)="openDialogMateriaSec()">Agregar
+      <i class="material-icons right">add</i>
+    </button>
+  <div class="container-fluid">
+
+    
+      <table mat-table [dataSource]="MateriasData" class="mat-elevation-z8">
+
+          <ng-container matColumnDef="id"> 
+              <th mat-header-cell *matHeaderCellDef class="header-table"> ID </th>
+              <td mat-cell *matCellDef="let materia"> {{materia.id_mat_sec}} </td>
+            </ng-container>
+    
+            <ng-container matColumnDef="materia" >
+              <th mat_header-cell *matHeaderCellDef  class="header-table"> Materia </th>
+              <td mat-cell *matCellDef="let materia"> {{getNameOfMateria(materia.codigo_materia)}} </td>
+            </ng-container>
+    
+            <ng-container matColumnDef="profesor"  class="header-table">
+              <th mat_header-cell *matHeaderCellDef class="header-table"> Profesor </th>
+              <td mat-cell *matCellDef="let materia"  > {{getNameOfProfesor(materia.ci_profesor)}} </td>
+            </ng-container>
+            
+            <!-- <ng-container matColumnDef="h_t">
+              <th mat_header-cell *matHeaderCellDef  class="header-table"> Horas Teoricas </th>
+              <td mat-cell *matCellDef="let materia"> {{materia.horas_teo}} </td>
+            </ng-container>
+           
+            <ng-container matColumnDef="h_p">
+              <th mat_header-cell *matHeaderCellDef  class="header-table"> Horas Practicas </th>
+              <td mat-cell *matCellDef="let materia"> {{materia.horas_pra}} </td>
+            </ng-container>
+              
+              <ng-container matColumnDef="h_l">
+                <th mat_header-cell *matHeaderCellDef  class="header-table"> Horas Laboratorio </th>
+                <td mat-cell *matCellDef="let materia"> {{materia.horas_lab}} </td>
+              </ng-container>
+    
+              <ng-container matColumnDef="h_tot">
+                <th mat_header-cell *matHeaderCellDef  class="header-table"> Horas Totales </th>
+                <td mat-cell *matCellDef="let materia"> {{materia.horas_teo + materia.horas_pra + materia.horas_lab}} </td>
+              </ng-container> -->
+    
+              <tr mat-header-row *matHeaderRowDef="columnasMaterias"></tr>
+              <tr mat-row *matRowDef="let row; columns: columnasMaterias;"></tr>
+      </table>
+    
+
+  </div>
+  
+ 
+
+
+</mat-expansion-panel>
+
+
+<!-- modificado por jogeiker -->

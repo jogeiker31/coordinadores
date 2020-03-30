@@ -1,0 +1,250 @@
+<mat-expansion-panel>
+    <mat-expansion-panel-header>
+        <mat-panel-title>
+            Profesor
+        </mat-panel-title>
+        <mat-panel-description>
+            Registrar un profesor
+        </mat-panel-description>
+    </mat-expansion-panel-header>
+
+
+    <div class="row">
+        <form class="col s12" [formGroup]="profesoresForm" (ngSubmit)="guardarProfesor()">
+            <div class="row">
+                <div class="input-field col s6">
+                    <input formControlName="ci_profesor" id="ci" type="text" required class="validate">
+                    <label for="ci">Cedula de Identidad</label>
+                    <div *ngIf="ci_profesor.invalid && (ci_profesor.dirty || ci_profesor.touched)" class=" red-text  text-darken-4">
+                        <div *ngIf="ci_profesor.errors.required">
+                            La C.I es requerida.
+                        </div>
+                        <div *ngIf="ci_profesor.errors.maxlength">
+                            El codigo no puede tener mas de 8 digitos
+                        </div>
+                        <div *ngIf="ci_profesor.errors.pattern && !ci_profesor.errors.maxlength">
+                            La celula de identidad no puede contener letras u otros caracteres. ejemplo "12345678"
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="input-field col s6">
+                    <input formControlName="cor_prof" id="correo" type="email" class="validate">
+                    <label for="correo">Correo</label>
+                    <div *ngIf="cor_prof.invalid && (cor_prof.dirty || cor_prof.touched)" class=" red-text  text-darken-4">
+                        <div *ngIf="cor_prof.errors.required">
+                            El Correo es requerido.
+                        </div>
+                        <div *ngIf="cor_prof.errors.email">
+                            El Correo tiene un formato erroneo. ejemplo "pedro@gmail.com"
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="row">
+                <div class="input-field col s4">
+                    <input formControlName="nom_prof" id="nombre" type="text" min="0" max="4" class="validate" value="0">
+                    <label for="nombre">Nombre</label>
+                    <div *ngIf="nom_prof.invalid && (nom_prof.dirty || nom_prof.touched)" class=" red-text  text-darken-4">
+                        <div *ngIf="nom_prof.errors.required">
+                            El nombre es requerido
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="input-field col s4">
+                    <input formControlName="ape_prof" id="apellido" type="text" min="0" max="4" class="validate" value="0">
+                    <label for="apellido">Apellido</label>
+                    <div *ngIf="ape_prof.invalid && (ape_prof.dirty || ape_prof.touched)" class=" red-text  text-darken-4">
+                        <div *ngIf="ape_prof.errors.required">
+                            El apellido es requerido
+                        </div>
+                    </div>
+                </div>
+
+                <div class="input-field col s4">
+                    <mat-form-field>
+                        <mat-label>Horas estipuladas</mat-label>
+                        <mat-select formControlName="horas_est">
+                            <mat-option *ngFor="let tipo of tipos" [value]="tipo.value">
+                                {{tipo.nombre}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+
+
+            </div>
+
+
+
+            <button class="btn waves-effect waves-light  light-blue darken-4" type="submit" [disabled]="!profesoresForm.valid">Guardar
+        <i class="material-icons right">send</i>
+      </button>
+        </form>
+    </div>
+
+</mat-expansion-panel>
+
+
+<div class="input-field container">
+    <input type="text" (keyup)="applyFilter($event.target.value)" id="filter">
+    <label for="filter">Busqueda avanzada</label>
+</div>
+
+<div class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource" matSort>
+
+        <ng-container matColumnDef="ci">
+            <th mat-header-cell *matHeaderCellDef> C.I </th>
+            <td mat-cell *matCellDef="let profesor" [ngClass]="{'seleccionado':edit && tomarCI == profesor.ci_profesor  ,'noseleccionado':!edit}">
+                <div *ngIf="tomarCI == profesor.ci_profesor && edit ">
+                    <form class="col s1" [formGroup]="profesoresE">
+                        <input type="text " matInput formControlName="ci_profesor" placeholder="{{profesor.ci_profesor}} ">
+
+                    </form>
+                </div>
+                <div *ngIf="tomarCI != profesor.ci_profesor && edit">
+                    <span>{{profesor.ci_profesor}}</span>
+
+                </div>
+                <div *ngIf="!edit">
+                    <span>{{profesor.ci_profesor}}</span>
+                </div>
+                <!--         {{profesor.ci_profesor}}  
+ -->
+            </td>
+        </ng-container>
+
+
+        <ng-container matColumnDef="nom_prof">
+            <th mat-header-cell *matHeaderCellDef> Nombre </th>
+            <td mat-cell *matCellDef="let profesor" [ngClass]="{'seleccionado':edit && tomarCI == profesor.ci_profesor  ,'noseleccionado':!edit}">
+                <div *ngIf="tomarCI == profesor.ci_profesor && edit ">
+                    <form class="col s1" [formGroup]="profesoresE">
+                        <input type="text" matInput class="browser-default" formControlName="nom_prof" placeholder="{{profesor.nom_prof}} ">
+
+                    </form>
+                </div>
+                <div *ngIf="tomarCI != profesor.ci_profesor && edit">
+                    <span>{{profesor.nom_prof}} </span>
+
+                </div>
+                <div *ngIf="!edit">
+                    <span>{{profesor.nom_prof}} </span>
+                </div>
+                <!--       {{profesor.nom_prof}} 
+ -->
+            </td>
+        </ng-container>
+
+
+        <ng-container matColumnDef="ape_prof">
+            <th mat-header-cell *matHeaderCellDef> Apellido </th>
+            <td mat-cell *matCellDef="let profesor" [ngClass]="{'seleccionado':edit && tomarCI == profesor.ci_profesor  ,'noseleccionado':!edit}">
+                <div *ngIf="tomarCI == profesor.ci_profesor && edit ">
+                    <form class="col s1" [formGroup]="profesoresE">
+                        <input type="text" matInput class="browser-default" class="validate" formControlName="ape_prof" placeholder="{{profesor.ape_prof}}">
+
+                    </form>
+                </div>
+                <div *ngIf="tomarCI != profesor.ci_profesor && edit">
+                    <span>{{profesor.ape_prof}}</span>
+
+                </div>
+                <div *ngIf="!edit">
+                    <span>{{profesor.ape_prof}}</span>
+                </div>
+                <!--       {{profesor.ape_prof}}
+ -->
+            </td>
+        </ng-container>
+
+
+        <ng-container matColumnDef="correo_prof">
+            <th mat-header-cell *matHeaderCellDef> Correo </th>
+            <td mat-cell *matCellDef="let profesor" [ngClass]="{'seleccionado':edit && tomarCI == profesor.ci_profesor  ,'noseleccionado':!edit}">
+                <div *ngIf="tomarCI == profesor.ci_profesor && edit ">
+                    <form class="col s1" [formGroup]="profesoresE">
+                        <input type="text" class="validate" matInput formControlName="cor_prof" placeholder="{{profesor.cor_prof}} ">
+
+                    </form>
+                </div>
+                <div *ngIf="tomarCI != profesor.ci_profesor && edit">
+                    <span>{{profesor.cor_prof}} </span>
+
+                </div>
+                <div *ngIf="!edit">
+                    <span>{{profesor.cor_prof}} </span>
+                </div>
+                <!--       {{profesor.cor_prof}} 
+ -->
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="h_e">
+            <th mat-header-cell *matHeaderCellDef> Horas estipuladas </th>
+            <td mat-cell *matCellDef="let profesor" [ngClass]="{'seleccionado':edit && tomarCI == profesor.ci_profesor  ,'noseleccionado':!edit}">
+                <div *ngIf="tomarCI == profesor.ci_profesor && edit ">
+                    <form class="col s1" [formGroup]="profesoresE">
+                        <input type="number" matInput class="validate" formControlName="horas_est" placeholder="{{profesor.horas_est}} ">
+
+                    </form>
+                </div>
+                <div *ngIf="tomarCI != profesor.ci_profesor && edit">
+                    <span>{{profesor.horas_est}} </span>
+
+                </div>
+                <div *ngIf="!edit">
+                    <span>{{profesor.horas_est}} </span>
+                </div>
+                <!--           {{profesor.horas_est}} 
+ -->
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="boton">
+            <th mat-header-cell *matHeaderCellDef> Eliminar </th>
+            <td mat-cell *matCellDef="let profesor" [ngClass]="{'seleccionado':edit && tomarCI == profesor.ci_profesor  ,'noseleccionado':!edit}"> <button (click)="borrarProfesor(profesor.ci_profesor)" mat-icon-button>
+          <mat-icon>delete</mat-icon>
+        </button> </td>
+        </ng-container>
+
+        <ng-container matColumnDef="botonE">
+            <th mat-header-cell *matHeaderCellDef> Editar </th>
+            <td mat-cell *matCellDef="let profesor" [ngClass]="{'seleccionado':edit && tomarCI == profesor.ci_profesor  ,'noseleccionado':!edit}">
+
+
+                <div *ngIf="edit && tomarCI == profesor.ci_profesor ">
+                    <form class="col s1 " [formGroup]="profesoresE" (ngSubmit)="SaveEdit()">
+                        <button (click)="edit = false " mat-icon-button id="editado">
+                      <mat-icon>clear</mat-icon>
+                  </button>
+                        <button [disabled]="!profesoresE.valid" type="submit" mat-icon-button id="editado">
+                    <mat-icon>done</mat-icon>
+                </button>
+                    </form>
+                </div>
+
+
+                <div *ngIf="!edit">
+                    <button (click)="editarProfesor(profesor.ci_profesor)" (click)="edit=true" (click)="tomarCI = profesor.ci_profesor " mat-icon-button>
+                   <mat-icon>edit</mat-icon>
+                </button>
+                </div>
+
+            </td>
+        </ng-container>
+
+
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+    <mat-paginator [pageSizeOptions]="[5, 10, 25]" showFirstLastButtons></mat-paginator>
+</div>

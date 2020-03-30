@@ -1,0 +1,6 @@
+<mat-nav-list>
+    <mat-list-item *ngFor="let link of links">
+        <a matLine routerLink="{{link.url}}">{{ link.nombre }}</a>
+
+    </mat-list-item>
+</mat-nav-list>

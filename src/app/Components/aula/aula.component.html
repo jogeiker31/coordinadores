@@ -1,0 +1,101 @@
+<mat-expansion-panel>
+    <mat-expansion-panel-header>
+        <mat-panel-title>
+            Aula
+        </mat-panel-title>
+        <mat-panel-description>
+            agrega una nueva aula
+        </mat-panel-description>
+    </mat-expansion-panel-header>
+
+
+    <div class="row">
+        <form class="col s12" [formGroup]="AulaForm" (ngSubmit)="guardaraula()">
+            <div class="row">
+                <div class="input-field col s12">
+                    <input formControlName="aula" type="number" min="0" id="aula" required class="validate">
+                    <label for="aula">Aula</label>
+
+                </div>
+            </div>
+            <button class="btn waves-effect waves-light  light-blue darken-4" type="submit">Guardar
+          <i class="material-icons right">send</i>
+        </button>
+        </form>
+    </div>
+
+</mat-expansion-panel>
+
+<div class="input-field container">
+    <input type="number" (keyup)="applyFilter($event.target.value)" id="filter">
+    <label for="filter">Busqueda avanzada</label>
+</div>
+
+
+<div class="mat-elevation-z8">
+
+    <table mat-table [dataSource]="dataSource" matSort>
+
+
+        <ng-container matColumnDef="aula">
+            <th mat-header-cell *matHeaderCellDef> Aula </th>
+            <td mat-cell *matCellDef="let aulaA" [ngClass]="{'seleccionado':edit && tomaraula == aulaA.aula  ,'noseleccionado':!edit}">
+                <div *ngIf="tomaraula == aulaA.aula && edit ">
+                    <form class="col s1" [formGroup]="aulaE">
+                        <input type="number " min="0" matInput formControlName="aula" placeholder="{{aulaA.aula}}">
+
+                    </form>
+                </div>
+                <div *ngIf="tomaraula != aulaA.aula && edit">
+                    <span>{{aulaA.aula}}</span>
+
+                </div>
+                <div *ngIf="!edit">
+                    <span>{{aulaA.aula}}</span>
+                </div>
+
+            </td>
+        </ng-container>
+
+
+        <ng-container matColumnDef="boton">
+            <th mat-header-cell *matHeaderCellDef> Eliminar </th>
+            <td mat-cell *matCellDef="let aulaA" [ngClass]="{'seleccionado':edit && tomaraula == aulaA.aula  ,'noseleccionado':!edit}"> <button (click)="borraraula(aulaA.aula)" mat-icon-button>
+                <mat-icon>delete</mat-icon>
+              </button> </td>
+        </ng-container>
+
+
+
+        <ng-container matColumnDef="botonE">
+            <th mat-header-cell *matHeaderCellDef> Editar </th>
+            <td mat-cell *matCellDef="let aulaA" [ngClass]="{'seleccionado':edit && tomaraula == aulaA.aula  ,'noseleccionado':!edit}">
+
+
+                <div *ngIf="edit && tomaraula == aulaA.aula ">
+                    <form class="col s1 " [formGroup]="aulaE" (ngSubmit)="SaveEdit()">
+                        <button (click)="edit = false " mat-icon-button id="editado">
+                            <mat-icon>build</mat-icon>
+                        </button>
+                        <button [disabled]="!aulaE.valid" type="submit" mat-icon-button id="editado">
+                          <mat-icon>done</mat-icon>
+                      </button>
+                    </form>
+                </div>
+
+
+                <div *ngIf="!edit">
+                    <button (click)="EditarAula(aulaA.aula)" (click)="edit=true" (click)="tomaraula = aulaA.aula " mat-icon-button>
+                         <mat-icon>build</mat-icon>
+                      </button>
+                </div>
+
+            </td>
+        </ng-container>
+
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" showFirstLastButtons></mat-paginator>
+</div>

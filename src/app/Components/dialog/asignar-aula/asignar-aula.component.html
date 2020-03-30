@@ -1,0 +1,42 @@
+<h1 mat-dialog-title >
+  Asignar aula a la seccion: {{data.seccion.codigo_siceu}} 
+  
+ </h1>
+
+ <div mat-dialog-content>
+
+
+     
+
+     <div class="row">
+         
+          
+          <div class="col s12">
+              <label> Selecciona una Aula</label>
+            <mat-form-field class="col s12">
+            
+            <mat-label>Aulas</mat-label>
+            <mat-select [(ngModel)]="AulaSelected">
+              <mat-option *ngFor="let aula of aulas" [value]="aula.aula">
+                aula n°{{aula.aula}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          </div>
+        
+        
+
+        
+      
+      
+     </div>
+
+     
+   
+ </div>
+ 
+ <div mat-dialog-actions>
+   <button mat-button (click)="onNoClick()">Cancelar</button>
+   <button mat-button  cdkFocusInitial [disabled]="!AulaSelected" (click)="asignarAula(data.seccion)">Aceptar</button>
+ </div>
+ 
