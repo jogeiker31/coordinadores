@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 
 export interface User {
@@ -97,12 +98,16 @@ getUsuario(id){
   })[0]
 }
 
+getUser(id){
+  return this.http.get(`${environment.URL_API}/api/usuario/${id}`)
+}
+
 setUserConected(id){
   this.userConected = this.getUsuario(id)
 }
 
 authUsuario(usuario,password){
-  return this.http.post('http://localhost:3000/api/usuario/auth',{usuario:usuario,password:password});
+  return this.http.post(`${environment.URL_API}/api/usuario/auth`,{usuario,password});
 
 }
 
@@ -111,13 +116,13 @@ cambiarPassword(id){
 }
 
 SetUsuario(data){
-  return this.http.post('http://localhost:3000/api/usuario/create',data)
+  return this.http.post(`${environment.URL_API}/api/usuario/create`,data)
 }
 GetUsuarios(){
-  return this.http.get('http://localhost:3000/api/usuario')
+  return this.http.get(`${environment.URL_API}/api/usuario`)
 }
 deleteUsuarios(data){
-  return this.http.delete(`http://localhost:3000/api/usuario/${data.ci_coor}`,data)
+  return this.http.delete(`${environment.URL_API}/api/usuario/${data.ci_coor}`,data)
 }
 
 }

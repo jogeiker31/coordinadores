@@ -2,20 +2,54 @@ const Usuario = require('../models/usuario'); // esto es un manera de hacer cons
 
 const usuarioCtrl = {};
 
-usuarioCtrl.getUser = async(req, res) => {
-    await Usuario.findOne({ usuario: req.body.usuario, password: req.body.password }).then((user) => {
-        res.json(user)
-    }).catch((err) => {
-        res.json({
-            'status': 'error 404',
-            'error': err
-        })
-        res.status(404);
-
+usuarioCtrl.getUser = (req, res) => {
+     Usuario.findOne({ usuario: req.body.usuario, password: req.body.password },(err,user)=>{
+        if(err){
+            res.status(200).json({
+                ok:false,
+                err
+            })
+        }else{
+            console.log(user)
+            if(user == null){
+                res.status(200).json({
+                    ok:false,
+                    err: {code:404,msg:'not found'}
+                })
+            }else{
+                res.status(200).json({
+                    ok:true,
+                    user
+                })
+            }
+        }
     })
 
 
 }
+
+
+usuarioCtrl.getUserById = (req, res) => {
+    Usuario.findById(req.params.id,(err,user)=>{
+       if(err){
+           res.status(200).json({
+               ok:false,
+               err
+           })
+       }else{
+        
+               res.status(200).json({
+                   ok:true,
+                   user
+               })
+           
+       }
+   })
+
+
+}
+
+
 
 usuarioCtrl.getUsers = async(req, res) => {
     const usuarios = await Usuario.find();
@@ -24,27 +58,20 @@ usuarioCtrl.getUsers = async(req, res) => {
 
 
 usuarioCtrl.createUsuario = async(req, res) => {
-    const usuario = new Usuario({
-        usuario: req.body.usuario,
-        password: req.body.password,
-        ci_coor: req.body.ci_coor,
-        nom_coor: req.body.nom_coor,
-        ape_coor: req.body.ape_coor,
-        correo_coor: req.body.correo_coor,
-        role: req.body.role
+    const usuario = new Usuario(req.body);
 
-    });
-
-    await usuario.save().then(() => {
-        res.status(200);
-        res.json({
-            'status': 'Usuario Saved'
-        });
-    }).catch((err) => {
-        console.log(err)
-        res.json({
-            'status': err
-        })
+    await usuario.save((err,newUser)=>{
+        if(err){
+            res.status(200).json({
+                ok:false,
+                err
+            })
+        }else{
+            res.status(200).json({
+                ok:true,
+                newUser
+            })
+        }
     })
 
 }

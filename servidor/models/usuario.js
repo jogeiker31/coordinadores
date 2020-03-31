@@ -7,10 +7,10 @@ const { Schema } = mongoose;
 const UsuarioSchema = new Schema({
     usuario: { type: String, required: true, unique: true },
     password: { type: String, required: true, minlength: 8 },
-    ci_coor: { type: String, required: true, unique: true },
-    nom_coor: { type: String, required: true },
-    ape_coor: { type: String, required: true },
-    correo_coor: { type: String, required: true, unique: true },
+    cedula: { type: String, required: true, unique: true },
+    nombre: { type: String, required: true },
+    apellido: { type: String, required: true },
+    email: { type: String, required: true, unique: true },
     role: { type: String, enum: ["admin", "coordinador"] }
 
 

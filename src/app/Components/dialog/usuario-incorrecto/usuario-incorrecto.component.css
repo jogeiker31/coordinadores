@@ -1,3 +1,9 @@
-button:focus{
-    background: inherit;
+.accept{
+    background-color: rgb(207, 45, 45);
+    margin: auto;
+    width: 70%;
+}
+
+.msg{
+    text-align: center;
 }

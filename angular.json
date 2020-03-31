@@ -120,6 +120,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "coordinadores-app"
+    }
+  },
+  "defaultProject": "coordinadores-app",
+  "cli": {
+    "analytics": "926064d1-4682-454d-abc3-5f7e99443628"
+  }
 }

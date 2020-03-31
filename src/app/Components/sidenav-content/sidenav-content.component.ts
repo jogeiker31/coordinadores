@@ -9,28 +9,38 @@ export class SidenavContentComponent implements OnInit {
 
   constructor(public loginService:LoginService) { }
   links=[]
-  admin = this.loginService.admin 
   
   ngOnInit() {
-    console.log(this.admin)
-    if(this.admin == true){
-      this.links=[
-        {url:'/usuarios',nombre:'Usuarios'},
-        {url:'/carreras',nombre:'Carreras'},
-        
-      ]
+    if(localStorage.getItem('role') == "admin"){
+      this.sidenavAdmin()
     }else{
- this.links = [
-    {url:'/horario',nombre:'Horario'},
-    {url:'/profesores',nombre:'Profesores'},
-    {url: '/materias',nombre:'materias'},
-    {url:'/aula',nombre:'Aulas'},
-    {url: '/logout',nombre:'Cerrar sesión'}
-    
-  ]
-  
-
+      this.sidenavCoordinador()
     }
+    }
+
+
+
+
+
+sidenavAdmin(){
+    this.links=[
+      {url:'/usuarios',nombre:'Usuarios'},
+      {url:'/carreras',nombre:'Carreras'},
+      
+    ]
+
+  }
+
+sidenavCoordinador(){
+    
+ this.links = [
+  {url:'/horario',nombre:'Horario'},
+  {url:'/profesores',nombre:'Profesores'},
+  {url: '/materias',nombre:'materias'},
+  {url:'/aula',nombre:'Aulas'},
+  {url: '/logout',nombre:'Cerrar sesión'}
+  
+]
   }
 
 

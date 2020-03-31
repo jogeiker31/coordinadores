@@ -24,28 +24,20 @@ import { CarrerasComponent } from '../../app/Components/carreras/carreras.compon
 import { UsuariosComponent } from '../../app/Components/usuarios/usuarios.component';
 
 export const components = [AppComponent,
-    HorarioComponent,
-    SidenavContentComponent,
+
     InicioComponent,
-    ProfesoresComponent,
+    LoginComponent,
+    UsuarioIncorrectoComponent,
+    AulaComponent,
+    HorasExcedidasComponent,
+    BorrarComponent,
+    ProfesorOcupadoComponent,
     AsignarMateriaComponent,
-    MateriasComponent,
-    ReloadComponent,
-    SeccionesComponent,
     AsignarMateriaSeccionComponent,
     AsignarAulaComponent,
-    LoginComponent,
-    LogoutComponent,
     UsuarioIncorrectoComponent,
-    RecoveryPasswordComponent,
-    ProfesorOcupadoComponent,
-    BorrarComponent,
-    HorasExcedidasComponent,
-    AulaComponent,
-    VistaAdminComponent,
-    CoordinadoresComponent,
-    CarrerasComponent,
-    UsuariosComponent
+    SidenavContentComponent
+    
     
     ]
 

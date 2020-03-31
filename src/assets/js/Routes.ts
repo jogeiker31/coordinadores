@@ -16,21 +16,21 @@ import { UsuariosComponent } from '../../app/Components/usuarios/usuarios.compon
 
  const appRoutes: Routes = [
     { path: 'horario', component: HorarioComponent },
-    { path: 'inicio',      component: InicioComponent },
+    // { path: 'inicio',      component: InicioComponent },
     {path: 'profesores',component: ProfesoresComponent},
     {path: 'materias', component:MateriasComponent},
-    { path: 'reload', component: ReloadComponent},
+    {path: 'reload', component: ReloadComponent},
     {path: 'secciones', component: SeccionesComponent},
-    {path: '', component: LoginComponent},
+    // {path: '', component: LoginComponent},
     {path: 'logout', component: LogoutComponent},
     {path: 'forgotpassword', component:RecoveryPasswordComponent},
     {path:'aula',component:AulaComponent},
     {path:'vadmin',component:VistaAdminComponent},
     {path:'coordinadores',component:CoordinadoresComponent},
     {path:'carreras',component:CarrerasComponent},
-    {path:'usuarios',component:UsuariosComponent}
+    // {path:'usuarios',component:UsuariosComponent}
   ];
 
 
-export const Rutas =  RouterModule.forRoot(appRoutes)
+// export const Rutas =  RouterModule.forRoot(appRoutes)
 

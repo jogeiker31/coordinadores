@@ -1,2 +1,38 @@
-<div class="imgbg">
-</div>
+<div class="drag"></div> <!-- este div es para poder arrastar la ventana -->
+
+<mat-toolbar class="BarraMenu " class="blue darken-4 white-text"> 
+        <button mat-icon-button color="white-text" class="btn-menu-sidenav hide-on-large-only " (click)="ToggleSidenav()">
+                <mat-icon>menu_open</mat-icon>
+                
+              </button>
+              <img src="./assets/images/unefaLogo.png" width="60px" height="60px">
+              SIGEOFAU
+              <div class="coordinador" *ngIf="coordinador"> {{coordinador.nom_coor}} {{coordinador.ape_coor}} </div>
+              <span class="nombre-coor">{{loginService.nombreUser}}</span>
+              <span class="example-spacer"></span>
+              <span class="hora">{{hora}}</span>
+
+            </mat-toolbar>
+
+<mat-sidenav-container  class="sidenav-container-main">
+    <mat-sidenav  mode="side" [(opened)]="opened" [mode]="mobileQuery.matches ? 'over' : 'side'" class="sidenav-main" class="sidenav-main">
+        <sidenav-content></sidenav-content>
+    </mat-sidenav>
+   
+   
+    <mat-sidenav-content> 
+            <router-outlet></router-outlet>
+    </mat-sidenav-content>
+  
+
+</mat-sidenav-container>
+
+<mat-card class="eventos-ventana no-drag">
+
+    <button class="browser-default" mat-icon-button (click)="Minimizar()"><mat-icon>remove
+        </mat-icon></button>
+    <button mat-icon-button (click)="Maximizar()"><mat-icon *ngIf="maximizado == false">fullscreen</mat-icon> <mat-icon *ngIf="maximizado == true">fullscreen_exit</mat-icon> </button>
+    <button mat-icon-button (click)="Cerrar()"><mat-icon>close</mat-icon></button>
+</mat-card>
+
+

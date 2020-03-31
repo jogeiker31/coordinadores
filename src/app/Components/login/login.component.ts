@@ -35,35 +35,25 @@ export class LoginComponent implements OnInit {
     
   }
 
-  usuarioIncorrecto(){
-    const usuarioIncorrectoDialog = this.dialog.open(UsuarioIncorrectoComponent, {
-      width: '350px',
-      height: '130px',
-    })
-  }
   
 
 
   async iniciarSesion(){
    
-    let info = this.loginForm.value; // guardamos el valor del formulario en la variable info
-    this.usuariosService.authUsuario(info.usuario,info.contra).subscribe((user)=>{
-      if( user !== null){ // si no es null entonces permite la entrada al sistema
-        this.loginService.setUserLog(user) // le manda al loginService la informacion del usuario que ingreso al sistema
-        this.loginService.adminuser(user)
-
-          
-        
-          this.router.navigateByUrl('/inicio') // redirecciona al inicio de la app
-      
-       
-        /////////////////////////////
-       
-        
+    let info = this.loginForm.value; 
+    this.usuariosService.authUsuario(info.usuario,info.contra).subscribe((resp:any)=>{
+      console.log(resp)
+      if( resp.ok){
+        localStorage.setItem('id',resp.user._id)
+        localStorage.setItem('role',resp.user.role)
+        this.router.navigate(['/usuarios']) 
       }else {
-        this.usuarioIncorrecto() // si es null entonces se desplegara la ventana modal indicando el error
+        const usuarioIncorrectoDialog = this.dialog.open(UsuarioIncorrectoComponent, {
+          width: '350px',
+          height: '130px',
+        })
       }
-    }) // le pedimos al servicio usuariosService que verifique si el usuario que desea ingresar al sistema existe, si no existe devuelve null
+    }) 
     
     
 

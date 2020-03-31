@@ -12,20 +12,7 @@ import { UsuariosService } from './services/usuarios.service';
 })
 export class AppComponent {
    
-  hora;
-  mobileQuery: MediaQueryList; // codigo Materials
-
-  opened: boolean = true; // codigo Materials
-
-  async TSN($event){ // codigo Materials
-    await (this.opened = $event); // codigo Materials
-  } 
-
-
-  ToggleSidenav(){ // codigo Materials
-    this.opened = !this.opened; // codigo Materials
-  }
-
+ 
   private _mobileQueryListener: () => void; // codigo Materials
 
   constructor(
@@ -36,28 +23,16 @@ export class AppComponent {
     private usuariosService: UsuariosService
     ) { 
 
-    this.mobileQuery = media.matchMedia('(max-width: 1000px)'); // codigo Materials
-    this._mobileQueryListener = () => { // codigo Materials
-      this.changeDetectorRef.detectChanges();
-      if(this.mobileQuery.matches){
-        this.opened = false;
-      }else{
-        this.opened = true;
-      }
-    };
-    this.mobileQuery.addListener(this._mobileQueryListener);
+  
   }
 
 async ngOnInit(){
-  this.getHora()
 
   
-  if(localStorage.length>0){
-    await this.loginService.getUserLog()
-  }
+
 }
 // variables de control
-coordinador;
+
 maximizado = false;
 
 Minimizar(){
@@ -94,20 +69,6 @@ zeroFill( number, width )
   return number + ""; // siempre devuelve tipo cadena
 }
 
- getHora(){
-   setInterval(()=>{
-    let fecha = new Date;
-    this.hora = ` ${(fecha.getHours()>12)? (this.zeroFill(fecha.getHours()-12,2)) : this.zeroFill(fecha.getHours(),2) }:${this.zeroFill(fecha.getMinutes(),2)}:${this.zeroFill(fecha.getSeconds(),2)} ${(this.zeroFill(fecha.getHours()>12,2))? 'PM' : 'AM'}`
-   },1000)
- }
-
-  ngOnDestroy(): void { // codigo Materials
-    this.mobileQuery.removeListener(this._mobileQueryListener);
-  }
-
-  ngAfterContentChecked(): void {
-    this.changeDetectorRef.detectChanges();
-  }
 
 
 }
